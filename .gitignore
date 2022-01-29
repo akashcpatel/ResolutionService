@@ -3,3 +3,11 @@
 ################################################################################
 
 /.vs
+/Storage/obj
+/Services/obj
+/Publisher/obj
+/Model/obj
+/Infrastructure/obj
+/UnitTests/Services.Tests/obj
+/UnitTests/Model/obj
+/UnitTests/Main/obj
