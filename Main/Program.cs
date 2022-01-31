@@ -17,7 +17,7 @@ namespace Main
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration(ConfigureApp)
-            .ConfigureLogging((context, loggingBuilder) => 
+            .ConfigureLogging((context, loggingBuilder) =>
             {
                 loggingBuilder.ClearProviders();
                 loggingBuilder.AddConfiguration(context.Configuration.GetSection("Logging"));

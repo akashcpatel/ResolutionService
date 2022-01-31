@@ -1,6 +1,4 @@
-﻿using Infrastructure;
-
-namespace Storage
+﻿namespace Storage
 {
     internal class StorageConfig
     {

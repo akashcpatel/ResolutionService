@@ -22,6 +22,6 @@ namespace Storage.DataTables
                 Target = u.Target,
                 TargetDate = u.TargetDate,
                 Achieved = u.Achieved
-            };        
+            };
     }
 }

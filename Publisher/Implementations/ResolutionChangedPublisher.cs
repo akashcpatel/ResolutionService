@@ -37,6 +37,6 @@ namespace Publisher.Implementations
         {
             var resolutionChangedData = ResolutionChangedData.Create(Header.Create(Guid.NewGuid(), changeType), r);
             return JsonConvert.SerializeObject(resolutionChangedData);
-        }        
+        }
     }
 }

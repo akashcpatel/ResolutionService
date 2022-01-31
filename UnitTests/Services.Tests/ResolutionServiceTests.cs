@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Model;
 using Moq;
@@ -7,6 +5,8 @@ using NUnit.Framework;
 using Publisher;
 using Services.Implementations;
 using Storage;
+using System;
+using System.Threading.Tasks;
 
 namespace Services.Tests
 {

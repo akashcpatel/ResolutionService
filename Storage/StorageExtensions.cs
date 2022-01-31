@@ -1,6 +1,6 @@
 ﻿using Infrastructure;
-using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Steeltoe.Connector.SqlServer.EFCore;
 using Storage.Implementations;

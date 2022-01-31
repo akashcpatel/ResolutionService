@@ -6,10 +6,10 @@ namespace Main.DTO
     {
         public static Resolution ToModel(this ResolutionDto dto) =>
             new Resolution
-            {                
+            {
                 Id = dto.Id,
                 UserId = dto.UserId,
-                Target  = dto.Target,
+                Target = dto.Target,
                 TargetDate = dto.TargetDate,
                 Achieved = dto.Achieved
             };

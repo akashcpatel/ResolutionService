@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Publisher;
+using Services.HostedServices;
 using Services.Implementations;
 using Storage;
 
@@ -14,7 +15,10 @@ namespace Services
             services.AddConfig<ServicesConfig>(config, ServicesConfig.PositionInConfig);
             services.AddHealthChecks().AddCheck<ServicesHealthCheck>(nameof(ServicesHealthCheck));
 
+            //services.AddHostedService<UserChangedReceiverService>();
+
             services.AddPublisher(config);
+
             services.AddStorage(config);
 
             services.RegisterServices();

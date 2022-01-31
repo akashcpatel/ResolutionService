@@ -1,14 +1,24 @@
 ﻿using Services;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Main.DTO
 {
     public class ResolutionDto : IValidate
     {
+        [Required]
         public Guid Id { get; set; }
+
+        [Required]
         public Guid UserId { get; set; }
+
+        [Required]
         public string Target { get; set; }
+
+        [Required]
         public DateTime TargetDate { get; set; }
+
+        [Required]
         public bool Achieved { get; set; } = false;
 
         public void Validate()
