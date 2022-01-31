@@ -19,3 +19,9 @@
 /UnitTests/Model/bin/Debug/netcoreapp3.1
 /UnitTests/Main/bin/Debug/netcoreapp3.1
 /UnitTests/Services.Tests/bin/Debug/netcoreapp3.1
+/UnitTests/Main.Tests/bin/Debug/netcoreapp3.1
+/UnitTests/Main.Tests/obj
+/UnitTests/Model.Tests/obj
+/UnitTests/Model.Tests/bin/Debug/netcoreapp3.1
+/UnitTests/Publisher.Tests/bin/Debug/netcoreapp3.1
+/UnitTests/Publisher.Tests/obj

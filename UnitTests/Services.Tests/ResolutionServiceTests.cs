@@ -36,9 +36,10 @@ namespace Services.Tests
         {
             var testResolution = CreateResolution();
 
-            _resolutionRepositoryMock.Setup(r => r.Find(testResolution.Id)).Returns(() => null);
+            _resolutionRepositoryMock.Setup(r => r.Find(testResolution.Id)).ReturnsAsync(() => null);
 
             await TestUpsert(1, testResolution);
+            _resolutionChangedPublisherMock.Verify(p => p.Add(testResolution), Times.Once);
         }
 
         [Test]
@@ -48,6 +49,7 @@ namespace Services.Tests
             _resolutionRepositoryMock.Setup(r => r.Find(testResolution.Id)).ReturnsAsync(() => testResolution);
 
             await TestUpsert(1, testResolution);
+            _resolutionChangedPublisherMock.Verify(p => p.Update(testResolution), Times.Once);
         }
 
         [Test]
@@ -60,6 +62,8 @@ namespace Services.Tests
             await _resolutionService.Delete(testResolution.Id);
 
             _resolutionRepositoryMock.Verify(r => r.Delete(testResolution.Id), Times.Once);
+
+            _resolutionChangedPublisherMock.Verify(p => p.Delete(testResolution.Id), Times.Once);
         }
 
         private async Task TestUpsert(int saveCount, Resolution testResolution)

@@ -8,11 +8,11 @@ namespace Model.Tests
         [Test]
         public void ConstructionTests()
         {
-            var user = new Resolution();
+            var user = new User();
             Assert.That(user.Id, Is.EqualTo(Guid.Empty));
-            //Assert.That(user.UserName, Is.Null);
-            //Assert.That(user.FirstName, Is.Null);
-            //Assert.That(user.LastName, Is.Null);
+            Assert.That(user.UserName, Is.Null);
+            Assert.That(user.FirstName, Is.Null);
+            Assert.That(user.LastName, Is.Null);
         }
     }
 }

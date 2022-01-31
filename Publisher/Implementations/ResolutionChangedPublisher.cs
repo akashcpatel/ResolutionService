@@ -36,6 +36,7 @@ namespace Publisher.Implementations
         private string CreateMessage(Resolution r, ChangeType changeType)
         {
             var resolutionChangedData = ResolutionChangedData.Create(Header.Create(Guid.NewGuid(), changeType), r);
+            var message = JsonConvert.SerializeObject(resolutionChangedData);
             return JsonConvert.SerializeObject(resolutionChangedData);
         }
     }
