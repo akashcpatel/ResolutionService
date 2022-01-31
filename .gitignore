@@ -11,3 +11,11 @@
 /UnitTests/Services.Tests/obj
 /UnitTests/Model/obj
 /UnitTests/Main/obj
+/Infrastructure/bin/Debug/netcoreapp3.1
+/Model/bin/Debug/netcoreapp3.1
+/Publisher/bin/Debug/netcoreapp3.1
+/Services/bin/Debug/netcoreapp3.1
+/Storage/bin/Debug
+/UnitTests/Model/bin/Debug/netcoreapp3.1
+/UnitTests/Main/bin/Debug/netcoreapp3.1
+/UnitTests/Services.Tests/bin/Debug/netcoreapp3.1

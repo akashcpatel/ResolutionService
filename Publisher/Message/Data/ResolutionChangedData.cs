@@ -6,5 +6,10 @@ namespace Publisher.Message.Data
     {
         public Header Header;
         public Resolution Payload;
+
+        public static ResolutionChangedData Create(Header header, Resolution payload)
+        {
+            return new ResolutionChangedData { Header = header, Payload = payload };
+        }
     }
 }

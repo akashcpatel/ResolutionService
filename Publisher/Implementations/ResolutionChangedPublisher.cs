@@ -35,21 +35,8 @@ namespace Publisher.Implementations
 
         private string CreateMessage(Resolution r, ChangeType changeType)
         {
-            var data = new ResolutionChangedData
-            {
-                Header = CreateHeader(changeType),
-                Payload = r
-            };
-
-            var message = JsonConvert.SerializeObject(data);
-            return message;
-        }
-
-        private Header CreateHeader(ChangeType changeType) =>
-            new Header
-            {
-                Key = Guid.NewGuid(),
-                ChangeType = changeType
-            };
+            var resolutionChangedData = ResolutionChangedData.Create(Header.Create(Guid.NewGuid(), changeType), r);
+            return JsonConvert.SerializeObject(resolutionChangedData);
+        }        
     }
 }

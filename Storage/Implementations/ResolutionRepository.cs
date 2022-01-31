@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Storage.DataTables;
 using System;
 using System.Threading.Tasks;
@@ -7,47 +9,55 @@ namespace Storage.Implementations
 {
     internal class ResolutionRepository : IResolutionRepository
     {
-        private readonly StorageConfig _storageConfig;
         private readonly ResolutionDataContext _context;
+        private readonly ILogger<ResolutionRepository> _logger;
 
-        public ResolutionRepository(StorageConfig config, [FromServices] ResolutionDataContext context)
+        public ResolutionRepository([FromServices] ResolutionDataContext context, ILogger<ResolutionRepository> logger)
         {
-            _storageConfig = config;
+            _logger = logger;
             _context = context;
         }
 
-        public async Task<Guid> Add(Model.Resolution r)
+        public async Task<Guid> Save(Model.Resolution r)
         {
-            var userData = r.ResolutionToResolutionData();
-            _ = await _context.ResolutionData.AddAsync(userData);
+            try
+            {
+                var userData = r.ResolutionToResolutionData();
+                _ = await _context.ResolutionData.AddAsync(userData);
 
-            return userData.Id;
+                return userData.Id;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occurred while saving resolution for {resolution}.", r, ex);
+
+                if (ex.InnerException != null)
+                    throw new Exception(ex.InnerException.Message);
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task Delete(Guid id)
         {
-            var findResult = await _context.ResolutionData.FindAsync(new object[] {id});
-            if(findResult != null)
-                _context.ResolutionData.Remove(findResult);
+            var resolutionData = new ResolutionData
+            {
+                Id = id
+            };
+
+            await Task.Run(() =>
+            {
+                _context.ResolutionData.Attach(resolutionData);
+                _context.ResolutionData.Remove(resolutionData);
+                _context.SaveChanges();
+            });
         }
 
         public async Task<Model.Resolution> Find(Guid id)
         {
-            var findUser = await _context.ResolutionData.FindAsync(new object[] { id });
-            if(findUser != null)
-                return findUser.ResolutionDataToResolution();
+            var findResolution = await _context.ResolutionData.SingleOrDefaultAsync(r => r.Id == id);
+            if (findResolution != null)
+                return findResolution.ResolutionDataToResolution();
             return null;
-        }
-
-        public Task<Guid> Update(Model.Resolution r)
-        {
-            var resolutionData = r.ResolutionToResolutionData();
-            var updateResult = _context.ResolutionData.Update(resolutionData);
-
-            if(updateResult != null && updateResult.State == Microsoft.EntityFrameworkCore.EntityState.Modified)
-                return Task.FromResult(resolutionData.Id);
-
-            return Task.FromResult(Guid.Empty);
         }
     }
 }

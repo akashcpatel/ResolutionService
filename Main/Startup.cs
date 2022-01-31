@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Services;
 
 namespace Main
@@ -22,7 +23,13 @@ namespace Main
             {
                 options.Filters.Add(typeof(ExceptionFilter));
             });
+
             services.AddServices(Configuration);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Resolution Service", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -31,6 +38,9 @@ namespace Main
                 app.UseDeveloperExceptionPage();
             else
                 app.UseExceptionHandler("/error");
+
+            app.UseSwagger();
+            app.UseSwaggerUI();
 
             app.UseHttpsRedirection()
                 .UseRouting()

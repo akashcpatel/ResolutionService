@@ -65,7 +65,7 @@ namespace Services.Implementations
         {
             _logger.LogInformation("Add resolution {resolution}", r);
 
-            await _resolutionRepository.Add(r);
+            await _resolutionRepository.Save(r);
             _ = Task.Run(async () => await _publisher.Add(r));
         }
 
@@ -73,7 +73,7 @@ namespace Services.Implementations
         {
             _logger.LogInformation("Update resolution {resolution}", r);
 
-            await _resolutionRepository.Update(r);
+            await _resolutionRepository.Save(r);
             _ = Task.Run(async () => await _publisher.Update(r));
         }
     }

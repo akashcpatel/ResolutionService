@@ -28,7 +28,7 @@ namespace Main.Controllers
 
             dto.Validate();
 
-            var id = await _resolutionService.UpSert(dto.To());
+            var id = await _resolutionService.UpSert(dto.ToModel());
 
             _logger.LogInformation("Resolution = {resolution} updated successfully.", dto);
 

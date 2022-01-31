@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Publisher.Message
 {
@@ -8,5 +6,14 @@ namespace Publisher.Message
     {
         public Guid Key;
         public ChangeType ChangeType;
+
+        public static Header Create(Guid key, ChangeType changeType)
+        {
+            return new Header
+            {
+                Key = key,
+                ChangeType = changeType
+            };
+        }
     }
 }

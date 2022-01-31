@@ -1,21 +1,28 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Steeltoe.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace Main
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public async static Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            await CreateHostBuilder(args).Build().RunAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration(ConfigureApp)
-            .ConfigureLogging((context, builder) => builder.AddDynamicConsole())
+            .ConfigureLogging((context, loggingBuilder) => 
+            {
+                loggingBuilder.ClearProviders();
+                loggingBuilder.AddConfiguration(context.Configuration.GetSection("Logging"));
+                loggingBuilder.AddDynamicConsole();
+            })
             .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
 
         private static void ConfigureApp(HostBuilderContext hostBuilder, IConfigurationBuilder configBuilder)
