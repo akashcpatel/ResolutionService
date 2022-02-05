@@ -8,9 +8,8 @@ namespace Model
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string UserName { get; set; }
 
-        public override bool Equals(Object obj)
+        public override bool Equals(object obj)
         {
             if (!(obj is User))
                 return false;
@@ -20,7 +19,7 @@ namespace Model
 
             var rhs = (User)obj;
 
-            return Id == rhs.Id && FirstName == rhs.FirstName && LastName == rhs.LastName && UserName == rhs.UserName;
+            return Id == rhs.Id && FirstName == rhs.FirstName && LastName == rhs.LastName;
         }
 
         public override int GetHashCode()

@@ -24,8 +24,6 @@ namespace Main
                 options.Filters.Add(typeof(ExceptionFilter));
             });
 
-            services.AddServices(Configuration);
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Resolution Service", Version = "v1" });

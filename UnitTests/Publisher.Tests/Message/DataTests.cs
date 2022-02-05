@@ -1,7 +1,4 @@
-﻿using NUnit.Framework;
-using Publisher.Message;
-
-namespace Publisher.Tests.Message
+﻿namespace Publisher.Tests.Message
 {
     public class DataTests
     {

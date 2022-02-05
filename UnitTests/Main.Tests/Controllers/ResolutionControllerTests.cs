@@ -54,7 +54,7 @@ namespace Main.Tests.Controllers
 
             _resolutionServiceMock.Setup(
                 r =>
-                r.UpSert(It.Is<Resolution>(r => 
+                r.UpSert(It.Is<Resolution>(r =>
                                           r.Target == dto.Target && r.TargetDate == dto.TargetDate &&
                                           r.Achieved == dto.Achieved && r.UserId == dto.UserId &&
                                           r.Id == dto.Id))).ReturnsAsync(dto.Id);

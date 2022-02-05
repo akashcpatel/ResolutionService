@@ -1,6 +1,4 @@
 ﻿using NUnit.Framework;
-using Publisher;
-using Steeltoe.Common.HealthChecks;
 
 namespace Services.Tests
 {

@@ -10,7 +10,6 @@ namespace Model.Tests
         {
             var user = new User();
             Assert.That(user.Id, Is.EqualTo(Guid.Empty));
-            Assert.That(user.UserName, Is.Null);
             Assert.That(user.FirstName, Is.Null);
             Assert.That(user.LastName, Is.Null);
         }

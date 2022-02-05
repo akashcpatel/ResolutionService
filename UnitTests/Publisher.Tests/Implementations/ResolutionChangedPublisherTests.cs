@@ -61,7 +61,7 @@ namespace Publisher.Tests.Implementations
             await _resolutionChangedPublisher.Delete(resolution.Id);
 
             _asyncCommunicatorMock.Verify(a =>
-                a.Send(_publisherConfig.ResolutionChangedQueue, It.Is<string>(x => x.Contains("\"ChangeType\":2") && 
+                a.Send(_publisherConfig.ResolutionChangedQueue, It.Is<string>(x => x.Contains("\"ChangeType\":2") &&
                 x.Contains($"\"Id\":\"{resolution.Id}\""))),
                 Times.Once);
         }

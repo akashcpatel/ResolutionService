@@ -24,6 +24,7 @@ namespace Publisher
 
         private static IServiceCollection RegisterServices(this IServiceCollection services)
         {
+            services.AddSingleton<IPublisherFactory, PublisherFactory>();
             services.AddScoped<IUserChangedReceiver, UserChangedReceiver>();
             services.AddScoped<IAsyncCommunicator, RabbitMQCommunicator>();
             services.AddScoped<IResolutionChangedPublisher, ResolutionChangedPublisher>();

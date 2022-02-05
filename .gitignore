@@ -25,3 +25,5 @@
 /UnitTests/Model.Tests/bin/Debug/netcoreapp3.1
 /UnitTests/Publisher.Tests/bin/Debug/netcoreapp3.1
 /UnitTests/Publisher.Tests/obj
+/UnitTests/Storage.Tests/bin/Debug/netcoreapp3.1
+/UnitTests/Storage.Tests/obj

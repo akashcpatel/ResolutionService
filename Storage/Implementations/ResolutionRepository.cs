@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Model;
 using Storage.DataTables;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Storage.Implementations
@@ -18,11 +21,11 @@ namespace Storage.Implementations
             _context = context;
         }
 
-        public async Task<Guid> Save(Model.Resolution r)
+        public async Task<Guid> Save(Resolution r)
         {
             try
             {
-                var userData = r.ResolutionToResolutionData();
+                var userData = r.ToData();
                 _ = await _context.ResolutionData.AddAsync(userData);
 
                 return userData.Id;
@@ -52,12 +55,29 @@ namespace Storage.Implementations
             });
         }
 
-        public async Task<Model.Resolution> Find(Guid id)
+        public async Task Delete(IEnumerable<Resolution> resolutions)
+        {
+            await Task.Run(() =>
+            {
+                var removeResolutions = resolutions.Select(resolution => resolution.ToData());
+
+                _context.ResolutionData.AttachRange(removeResolutions);
+                _context.ResolutionData.RemoveRange(removeResolutions);
+            });
+        }
+
+        public async Task<Resolution> Find(Guid id)
         {
             var findResolution = await _context.ResolutionData.SingleOrDefaultAsync(r => r.Id == id);
             if (findResolution != null)
-                return findResolution.ResolutionDataToResolution();
+                return findResolution.ToModel();
             return null;
+        }
+
+        public async Task<IEnumerable<Resolution>> FindAllForUser(Guid userId)
+        {
+            var resolutionsData = await Task.FromResult(_context.ResolutionData.Where(r => r.UserId == userId));
+            return resolutionsData.Select(r => r.ToModel());
         }
     }
 }

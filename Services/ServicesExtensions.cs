@@ -15,13 +15,13 @@ namespace Services
             services.AddConfig<ServicesConfig>(config, ServicesConfig.PositionInConfig);
             services.AddHealthChecks().AddCheck<ServicesHealthCheck>(nameof(ServicesHealthCheck));
 
-            //services.AddHostedService<UserChangedReceiverService>();
-
             services.AddPublisher(config);
 
             services.AddStorage(config);
 
             services.RegisterServices();
+
+            services.AddHostedService<UserChangedReceiverService>();
 
             return services;
         }
@@ -29,6 +29,7 @@ namespace Services
         private static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IResolutionService, ResolutionService>();
+            services.AddSingleton<IServicesFactory, ServicesFactory>();
         }
     }
 }

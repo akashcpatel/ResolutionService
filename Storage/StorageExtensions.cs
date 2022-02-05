@@ -32,7 +32,7 @@ namespace Storage
 
         private static IServiceCollection RegisterServices(this IServiceCollection services)
         {
-            services.AddSingleton<IResolutionRepository, ResolutionRepository>();
+            services.AddScoped<IResolutionRepository, ResolutionRepository>();
 
             return services;
         }
