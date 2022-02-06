@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Services;
 using Steeltoe.Extensions.Logging;
-using System;
 using System.Threading.Tasks;
 
 namespace Main

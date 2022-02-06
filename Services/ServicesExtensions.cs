@@ -29,6 +29,7 @@ namespace Services
         private static void RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IResolutionService, ResolutionService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IServicesFactory, ServicesFactory>();
         }
     }

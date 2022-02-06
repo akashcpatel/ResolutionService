@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Publisher;
+using Publisher.Message.Data;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -31,15 +32,21 @@ namespace Services.HostedServices
                 if (stoppingToken.IsCancellationRequested)
                     return;
 
-                var userChangedData = await _publisherFactory.GetUserChangedReceiver()?.Receive();
+                UserChangedData userChangedData = null;
 
-                if (userChangedData == null)
-                    continue;
-
-                var userService = _servicesFactory.GetUserService();
-                await userService?.Sync(userChangedData);
-
-                await Task.Delay(new TimeSpan(0, 0, _servicesConfig.UserChangedReceiverServiceDelayInSeconds));
+                try
+                {
+                    userChangedData = await _publisherFactory.GetUserChangedReceiver()?.Receive();
+                    await _servicesFactory.GetUserService()?.Sync(userChangedData);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Error occurred processing user = {user}", userChangedData, ex);
+                }
+                finally
+                {
+                    await Task.Delay(new TimeSpan(0, 0, _servicesConfig.UserChangedReceiverServiceDelayInSeconds));
+                }
             }
         }
     }

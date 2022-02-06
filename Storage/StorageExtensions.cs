@@ -26,6 +26,7 @@ namespace Storage
             services.AddDbContext<ResolutionDataContext>(options => options.UseSqlServer(config), ServiceLifetime.Singleton);
 
             var db = services.BuildServiceProvider().GetService<ResolutionDataContext>();
+
             db.Database.EnsureCreated();
             db.SaveChanges();
         }
@@ -33,6 +34,7 @@ namespace Storage
         private static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddScoped<IResolutionRepository, ResolutionRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             return services;
         }

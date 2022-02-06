@@ -21,16 +21,24 @@ namespace Storage.Implementations
 
         public async Task<Guid> Save(User u)
         {
+            var userData = await _context.UserData.FindAsync(u.Id);
+
             try
             {
-                var userData = u.ToData();
-                _ = await _context.UserData.AddAsync(userData);
+                if (userData == null)
+                    _context.UserData.Add(u.ToData());
+                else
+                {
+                    userData.FirstName = u.FirstName;
+                    userData.LastName = u.LastName;
+                }
 
-                return userData.Id;
+                _context.SaveChanges();
+                return u.Id;
             }
             catch (Exception ex)
             {
-                _logger.LogError("Error occurred while saving resolution for {resolution}.", u, ex);
+                _logger.LogError("Error occurred while saving user for {user}.", u, ex);
 
                 if (ex.InnerException != null)
                     throw new Exception(ex.InnerException.Message);
