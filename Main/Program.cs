@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore;
+using Application;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,11 +14,11 @@ namespace Main
     {
         public async static Task Main(string[] args)
         {
-            await CreateWebHostBuilder(args).Build().RunAsync();
+            await CreateHostBuilder(args).Build().RunAsync();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+            Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration(ConfigureApp)
             .ConfigureServices(ConfigureServices)
             .ConfigureLogging((context, loggingBuilder) =>
@@ -27,14 +27,14 @@ namespace Main
                 loggingBuilder.AddConfiguration(context.Configuration.GetSection("Logging"));
                 loggingBuilder.AddDynamicConsole();
             })
-            .UseStartup<Startup>();
+            .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
 
-        private static void ConfigureServices(WebHostBuilderContext webHostBuilder, IServiceCollection services)
+        private static void ConfigureServices(HostBuilderContext webHostBuilder, IServiceCollection services)
         {
-            services.AddServices(webHostBuilder.Configuration);
+            services.SetupApplication(webHostBuilder.Configuration);
         }
 
-        private static void ConfigureApp(WebHostBuilderContext hostBuilder, IConfigurationBuilder configBuilder)
+        private static void ConfigureApp(HostBuilderContext hostBuilder, IConfigurationBuilder configBuilder)
         {
             configBuilder.AddJsonFile("appsettings.json", true, true)
                 .AddJsonFile($"appsettings.{hostBuilder.HostingEnvironment}.json", true, true)

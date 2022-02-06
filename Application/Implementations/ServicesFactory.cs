@@ -1,9 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 
-namespace Services.Implementations
+namespace Application.Implementations
 {
-    public class ServicesFactory : IServicesFactory
+    public class ServicesFactory : IApplicationServicesFactory
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
 

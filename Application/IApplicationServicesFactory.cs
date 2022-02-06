@@ -1,6 +1,6 @@
-﻿namespace Services
+﻿namespace Application
 {
-    public interface IServicesFactory
+    public interface IApplicationServicesFactory
     {
         IUserService GetUserService();
         IResolutionService GetResolutionService();

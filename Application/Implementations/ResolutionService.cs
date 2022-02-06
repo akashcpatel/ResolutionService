@@ -6,16 +6,16 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Services.Implementations
+namespace Application.Implementations
 {
     internal class ResolutionService : IResolutionService
     {
         private readonly ILogger<ResolutionService> _logger;
         private readonly IResolutionRepository _resolutionRepository;
         private readonly IResolutionChangedPublisher _publisher;
-        private readonly ServicesConfig _config;
+        private readonly ApplicationConfig _config;
 
-        public ResolutionService(ILogger<ResolutionService> logger, ServicesConfig config,
+        public ResolutionService(ILogger<ResolutionService> logger, ApplicationConfig config,
             IResolutionChangedPublisher publisher, IResolutionRepository resolutionRepository)
         {
             _logger = logger;

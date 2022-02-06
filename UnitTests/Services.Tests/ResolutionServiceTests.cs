@@ -1,21 +1,21 @@
+using Application.Implementations;
 using Microsoft.Extensions.Logging;
 using Model;
 using Moq;
 using NUnit.Framework;
 using Publisher;
-using Services.Implementations;
 using Storage;
 using System;
 using System.Threading.Tasks;
 
-namespace Services.Tests
+namespace Application.Tests
 {
     [TestFixture]
     public class ResolutionServiceTests
     {
         private ResolutionService _resolutionService;
         private Mock<ILogger<ResolutionService>> _loggerMock;
-        private ServicesConfig _config;
+        private ApplicationConfig _config;
         private Mock<IResolutionRepository> _resolutionRepositoryMock;
         private Mock<IResolutionChangedPublisher> _resolutionChangedPublisherMock;
 
@@ -23,7 +23,7 @@ namespace Services.Tests
         public void Setup()
         {
             _loggerMock = new Mock<ILogger<ResolutionService>>();
-            _config = new ServicesConfig();
+            _config = new ApplicationConfig();
             _resolutionRepositoryMock = new Mock<IResolutionRepository>();
             _resolutionChangedPublisherMock = new Mock<IResolutionChangedPublisher>();
 

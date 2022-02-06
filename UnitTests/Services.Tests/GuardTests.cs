@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
 using System;
 
-namespace Services.Tests
+namespace Application.Tests
 {
     [TestFixture]
     public class GuardTests

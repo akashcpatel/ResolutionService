@@ -9,6 +9,16 @@ namespace Model
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public User Clone()
+        {
+            return new User
+            {
+                Id = Id,
+                FirstName = FirstName,
+                LastName = LastName
+            };
+        }
+
         public override bool Equals(object obj)
         {
             if (!(obj is User))

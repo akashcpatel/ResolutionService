@@ -11,7 +11,10 @@ namespace Storage.DataTables
         public Guid Id { get; set; }
 
         [Required]
+        [ForeignKey("User")]
         public Guid UserId { get; set; }
+
+        public UserData User { get; set; }
 
         [Required]
         public string Target { get; set; }

@@ -2,24 +2,27 @@
 using Model;
 using Publisher.Message;
 using Publisher.Message.Data;
+using Services;
 using Storage;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Services.Implementations
+namespace Application.Implementations
 {
     internal class UserService : IUserService
     {
         private readonly ILogger<UserService> _logger;
         private readonly IUserRepository _userRepository;
         private readonly IResolutionService _resolutionService;
+        private readonly IUserSearch _userSearch;
 
-        public UserService(ILogger<UserService> logger, IUserRepository userRepository, IResolutionService resolutionService)
+        public UserService(ILogger<UserService> logger, IUserRepository userRepository, IResolutionService resolutionService, IUserSearch userSearch)
         {
             _logger = logger;
             _userRepository = userRepository;
             _resolutionService = resolutionService;
+            _userSearch = userSearch;
 
             CreateActions();
         }
@@ -61,7 +64,9 @@ namespace Services.Implementations
         {
             _logger.LogInformation("Save user = {user}", payload);
 
-            await _userRepository.Save(payload);
+            var user = await _userSearch.Find(payload.Id);
+
+            await _userRepository.Save(user == null ? payload : user);
 
             _logger.LogInformation("Save user completed for {user}", payload);
             return await Task.FromResult(payload?.Id);

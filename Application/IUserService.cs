@@ -3,7 +3,7 @@ using Publisher.Message.Data;
 using System;
 using System.Threading.Tasks;
 
-namespace Services
+namespace Application
 {
     public interface IUserService
     {

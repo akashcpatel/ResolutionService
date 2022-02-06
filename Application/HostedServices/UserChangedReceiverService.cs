@@ -6,17 +6,17 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Services.HostedServices
+namespace Application.HostedServices
 {
     internal class UserChangedReceiverService : BackgroundService
     {
         private readonly ILogger _logger;
-        private readonly ServicesConfig _servicesConfig;
+        private readonly ApplicationConfig _servicesConfig;
         private readonly IPublisherFactory _publisherFactory;
-        private readonly IServicesFactory _servicesFactory;
+        private readonly IApplicationServicesFactory _servicesFactory;
 
-        public UserChangedReceiverService(ILogger<UserChangedReceiverService> logger, ServicesConfig servicesConfig, IPublisherFactory publisherFactory,
-            IServicesFactory servicesFactory)
+        public UserChangedReceiverService(ILogger<UserChangedReceiverService> logger, ApplicationConfig servicesConfig, IPublisherFactory publisherFactory,
+            IApplicationServicesFactory servicesFactory)
         {
             _publisherFactory = publisherFactory;
             _servicesFactory = servicesFactory;
